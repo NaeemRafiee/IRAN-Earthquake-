@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#clone git
+git clone https://github.com/40021441054102/OS-Lab-Projects.git
+cd OS-Lab-Projects/Analyze-Earthquake-Logs
+
+#Exteract Date,Time,Coordinates,Depth,Magnitude between Latitudes of 24 and 40 and Longitudes of 44 and 64
+
+#Max_Magnitude=0
+#Max_Record=" "
+
+awk -F,  ' BEGIN { Max_Magnitude=0 } {date_time=$1; lat=$2; lon=$3; Depth=$4; Magnitude=$5;
+
+if (lat>=24 && lat<=40 && lon>=44 && lon<=64) { print date_time , lat , lon , Depth , Magnitude >> "'iran_erthquake.txt'"
+
+        if ( Max_Magnitude < Magnitude ) {
+        Max_Magnitude=Magnitude
+        Max_Record=date_time " , " lat " , " lon " , " Depth " , " Magnitude " , "
+                echo "run"
+                }
+        }
+}
+END {print  "Erthquake with Highest Magnitude in Iran is : " Max_Record
+
+}' earthquakes.txt
+
+
+
